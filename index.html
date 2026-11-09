@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Family Clan • Trusted Multi-Game Dealer</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #0a0a0b; color: #f8fafc; overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+    
+    .glass-nav {
+      background: rgba(10, 10, 11, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-gradient {
+      background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0a0a0b 100%);
+    }
+
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Professional Proof Card */
+    .proof-card-pro {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #111113 0%, #0a0a0b 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .proof-card-pro:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    }
+
+    .proof-card-pro .image-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proof-card-pro .image-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(to top, #0a0a0b 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .proof-card-pro img {
+      transition: transform 0.6s ease;
+    }
+
+    .proof-card-pro:hover img {
+      transform: scale(1.08);
+    }
+
+    .status-badge {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+    }
+
+    /* Review Card Professional */
+    .review-card-pro {
+      background: linear-gradient(145deg, #18181b 0%, #0f0f10 100%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .review-card-pro::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 120px;
+      font-family: Georgia, serif;
+      color: rgba(255, 255, 255, 0.03);
+      line-height: 1;
+    }
+
+    /* Townhall Card */
+    .th-card {
+      position: relative;
+      background: linear-gradient(145deg, #1a1a1d 0%, #0d0d0e 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .th-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: rgba(234, 179, 8, 0.5);
+      box-shadow: 0 20px 40px rgba(234, 179, 8, 0.1);
+    }
+
+    .th-card.in-stock {
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .th-card.in-stock:hover {
+      border-color: rgba(34, 197, 94, 0.6);
+      box-shadow: 0 20px 40px rgba(34, 197, 94, 0.1);
+    }
+
+    .th-card.out-stock {
+      opacity: 0.6;
+    }
+
+    .glow-line {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #eab308, transparent);
+    }
+
+    .section-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    }
+
+    /* Scroll animation reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    /* Star colors */
+    .star-filled { color: #eab308; }
+    .star-empty { color: #374151; }
+  </style>
+</head>
+<body x-data="{ 
+  scrollSlider(ref) { this.$refs[ref].scrollBy({ left: 350, behavior: 'smooth' }) },
+  scrollSliderPrev(ref) { this.$refs[ref].scrollBy({ left: -350, behavior: 'smooth' }) }
+}">
+
+  <!-- Navigation -->
+  <nav class="glass-nav fixed w-full z-50 py-3 md:py-4">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center">
+      <div class="flex items-center gap-2 md:gap-3">
+        <img src="logo.png" alt="Logo" class="h-8 md:h-10">
+        <span class="text-lg md:text-xl font-bold tracking-tighter">FAMILY CLAN</span>
+      </div>
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+        <a href="#home" class="hover:text-white transition">Home</a>
+        <a href="#townhalls" class="hover:text-white transition">Stock</a>
+        <a href="#proofs" class="hover:text-white transition">Proofs</a>
+        <a href="#reviews" class="hover:text-white transition">Reviews</a>
+        <a href="https://wa.me/message/JCDRR54IN7HJA1?src=qr" class="text-white border-b border-white">DM</a>
+      </div>
+      <!-- Mobile DM Button -->
+      <a href="https://wa.me/message/JCDRR54IN7HJA1?src=qr" class="md:hidden bg-white text-black text-xs font-bold px-3 py-2 rounded-full">
+        DM US
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-gradient min-h-screen flex items-center pt-24 md:pt-20 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
+      
+      <!-- Left: Text -->
+      <div class="text-center md:text-left order-2 md:order-1">
+        <h1 class="text-5xl md:text-9xl font-black leading-none mb-4 md:mb-6">
+          FAMILY<br><span class="text-gray-500">CLAN</span>
+        </h1>
+        <h2 class="text-lg md:text-2xl text-white font-bold mb-4 flex flex-wrap justify-center md:justify-start gap-2 md:gap-3 items-center">
+          <span class="text-yellow-500">COC</span> • 
+          <span class="text-blue-400">CLASH ROYALE</span> • 
+          <span class="text-red-400">BRAWL STAR</span>
+        </h2>
+        <p class="text-base md:text-xl text-gray-400 mb-8 max-w-lg mx-auto md:mx-0">
+          The industry standard for premium gaming accounts. Safe transactions since 2021.
+        </p>
+        <a href="https://wa.me/message/JCDRR54IN7HJA1?src=qr" target="_blank" class="bg-white text-black px-8 py-3 md:px-10 md:py-4 rounded-full font-bold text-base md:text-lg inline-block hover:scale-105 transition transform shadow-lg shadow-white/20">
+          CONTACT @FAMILY_CLLAN
+        </a>
+      </div>
+
+      <!-- Right: Floating Logos -->
+      <div class="relative h-[300px] md:h-[500px] w-full flex items-center justify-center order-1 md:order-2">
+        <img src="coc.png" alt="COC" class="absolute w-48 md:w-[28rem] z-20 hero-float-1 drop-shadow-2xl">
+        <img src="cr.png" alt="Clash Royale" class="absolute top-0 right-4 md:-top-10 md:right-10 w-24 md:w-40 z-10 hero-float-2 drop-shadow-2xl opacity-90">
+        <img src="brawll.png" alt="Pokemon" class="absolute bottom-4 left-4 md:bottom-0 md:left-10 w-24 md:w-48 z-10 hero-float-3 drop-shadow-2xl opacity-90">
+      </div>
+    </div>
+  </section>
+
+  <!-- Available Townhalls Section -->
+  <section id="townhalls" class="py-20 md:py-32 bg-[#0a0a0b] relative">
+    <div class="section-line w-full absolute top-0"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <!-- Section Header -->
+      <div class="text-center mb-12 md:mb-20 reveal">
+        <p class="text-yellow-500 text-sm font-bold tracking-[0.3em] mb-4">CURRENT INVENTORY</p>
+        <h2 class="text-4xl md:text-7xl font-bold mb-4">AVAILABLE <span class="text-yellow-500">TOWNHALLS</span></h2>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">Premium Clash of Clans accounts ready for instant delivery. All accounts are verified and secure.</p>
+      </div>
+
+      <!-- Townhall Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 reveal">
+        
+        <!-- TH16 -->
+        <div class="th-card in-stock p-5 md:p-6 text-center group">
+          <div class="relative mb-4">
+            <img src="th16.jpg" alt="TH16" class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain group-hover:scale-110 transition duration-300">
+            <span class="absolute -top-2 -right-2 bg-green-500 text-[10px] font-bold px-2 py-1 rounded-full">IN STOCK</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-1">TH16</h3>
+          <p class="text-gray-400 text-sm mb-3">Max & Semi Max</p>
+          <div class="bg-white/5 rounded-lg py-2 px-3">
+            <span class="text-green-400 font-bold text-sm">3 Available</span>
+          </div>
+        </div>
+
+        <!-- TH15 -->
+        <div class="th-card in-stock p-5 md:p-6 text-center group">
+          <div class="relative mb-4">
+            <img src="th15.jpg" alt="TH15" class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain group-hover:scale-110 transition duration-300">
+            <span class="absolute -top-2 -right-2 bg-green-500 text-[10px] font-bold px-2 py-1 rounded-full">IN STOCK</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-1">TH15</h3>
+          <p class="text-gray-400 text-sm mb-3">Max & Semi Max</p>
+          <div class="bg-white/5 rounded-lg py-2 px-3">
+            <span class="text-green-400 font-bold text-sm">5 Available</span>
+          </div>
+        </div>
+
+        <!-- TH14 -->
+        <div class="th-card in-stock p-5 md:p-6 text-center group">
+          <div class="relative mb-4">
+            <img src="th14.png" alt="TH14" class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain group-hover:scale-110 transition duration-300">
+            <span class="absolute -top-2 -right-2 bg-green-500 text-[10px] font-bold px-2 py-1 rounded-full">IN STOCK</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-1">TH14</h3>
+          <p class="text-gray-400 text-sm mb-3">Max Available</p>
+          <div class="bg-white/5 rounded-lg py-2 px-3">
+            <span class="text-green-400 font-bold text-sm">4 Available</span>
+          </div>
+        </div>
+
+        <!-- TH13 -->
+        <div class="th-card in-stock p-5 md:p-6 text-center group">
+          <div class="relative mb-4">
+            <img src="th13.jpg" alt="TH13" class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain group-hover:scale-110 transition duration-300">
+            <span class="absolute -top-2 -right-2 bg-green-500 text-[10px] font-bold px-2 py-1 rounded-full">IN STOCK</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-1">TH13</h3>
+          <p class="text-gray-400 text-sm mb-3">Max & Rush</p>
+          <div class="bg-white/5 rounded-lg py-2 px-3">
+            <span class="text-green-400 font-bold text-sm">6 Available</span>
+          </div>
+        </div>
+
+        <!-- TH12 -->
+        <div class="th-card in-stock p-5 md:p-6 text-center group">
+          <div class="relative mb-4">
+            <img src="th12.jpg" alt="TH12" class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain group-hover:scale-110 transition duration-300">
+            <span class="absolute -top-2 -right-2 bg-green-500 text-[10px] font-bold px-2 py-1 rounded-full">IN STOCK</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-1">TH12</h3>
+          <p class="text-gray-400 text-sm mb-3">Various Levels</p>
+          <div class="bg-white/5 rounded-lg py-2 px-3">
+            <span class="text-green-400 font-bold text-sm">3 Available</span>
+          </div>
+        </div>
+
+        <!-- TH11 -->
+        <div class="th-card in-stock p-5 md:p-6 text-center group">
+          <div class="relative mb-4">
+            <img src="th11.jpg" alt="TH11" class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain group-hover:scale-110 transition duration-300">
+            <span class="absolute -top-2 -right-2 bg-green-500 text-[10px] font-bold px-2 py-1 rounded-full">IN STOCK</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-1">TH11</h3>
+          <p class="text-gray-400 text-sm mb-3">Max & Semi</p>
+          <div class="bg-white/5 rounded-lg py-2 px-3">
+            <span class="text-green-400 font-bold text-sm">9 Available</span>
+          </div>
+        </div>
+
+        <!-- TH10 -->
+        <div class="th-card in-stock p-5 md:p-6 text-center group">
+          <div class="relative mb-4">
+            <img src="th10.jpg" alt="TH10" class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain group-hover:scale-110 transition duration-300">
+            <span class="absolute -top-2 -right-2 bg-yellow-500 text-[10px] font-bold px-2 py-1 rounded-full text-black">LIMITED</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-1">TH10</h3>
+          <p class="text-gray-400 text-sm mb-3">Max Only</p>
+          <div class="bg-white/5 rounded-lg py-2 px-3">
+            <span class="text-yellow-400 font-bold text-sm">5 Available</span>
+          </div>
+        </div>
+
+        <!-- TH9 -->
+        <div class="th-card out-stock p-5 md:p-6 text-center group">
+          <div class="relative mb-4">
+            <img src="th9.jpg" alt="TH9" class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain grayscale">
+            <span class="absolute -top-2 -right-2 bg-red-500/80 text-[10px] font-bold px-2 py-1 rounded-full">SOLD OUT</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-500 mb-1">TH9</h3>
+          <p class="text-gray-600 text-sm mb-3">Coming Soon</p>
+          <div class="bg-white/5 rounded-lg py-2 px-3">
+            <span class="text-gray-500 font-bold text-sm">0 Available</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center mt-12 md:mt-16 reveal">
+        <p class="text-gray-400 mb-6">Need a specific account? Custom orders available!</p>
+        <a href="https://wa.me/message/JCDRR54IN7HJA1?src=qr" target="_blank" class="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition transform">
+          <i class="fab fa-instagram text-xl"></i>
+          CHECK AVAILABILITY
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transaction Proofs -->
+  <section id="proofs" class="py-20 md:py-32 bg-[#0f0f10] relative">
+    <div class="section-line w-full absolute top-0"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6 reveal">
+        <div>
+          <p class="text-yellow-500 text-sm font-bold tracking-[0.3em] mb-3">VERIFIED TRANSACTIONS</p>
+          <div class="flex items-center gap-4">
+            <h2 class="text-4xl md:text-7xl font-bold">SUCCESS <span class="text-gray-500">PROOFS</span></h2>
+          </div>
+          <p class="text-gray-400 mt-3 text-lg">Real deals. Real customers. Real trust.</p>
+        </div>
+        <!-- Navigation Arrows -->
+        <div class="flex gap-3">
+          <button @click="scrollSliderPrev('proofSlider')" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition group">
+            <i class="fas fa-arrow-left text-gray-400 group-hover:text-black"></i>
+          </button>
+          <button @click="scrollSlider('proofSlider')" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition group">
+            <i class="fas fa-arrow-right text-gray-400 group-hover:text-black"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Proofs Slider - 15 PROOFS -->
+      <div x-ref="proofSlider" class="flex gap-5 md:gap-6 overflow-x-auto hide-scrollbar pb-8 snap-x snap-mandatory reveal">
+        
+        <!-- Proof Card 1 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof6.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH16 MAX</span>
+              <span class="text-gray-500 text-xs">FEB 12, 2026</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">Premium Account Sale</h3>
+            <p class="text-gray-400 text-sm">Full max account with all heroes maxed. Instant delivery completed.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 2 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof2.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH15 MAX</span>
+              <span class="text-gray-500 text-xs">JAN 17, 2026</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH15 Fully Maxed</h3>
+            <p class="text-gray-400 text-sm">Complete max account with rare skins. Payment received instantly.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 3 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof3.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-blue-400 text-xs font-bold tracking-wider">TH 16 MAXED</span>
+              <span class="text-gray-500 text-xs">JAN 10, 2026</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH 16 Maxed Account</h3>
+            <p class="text-gray-400 text-sm">INSTANT DELIVERY.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 4 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof4.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH14 VERIFIED</span>
+              <span class="text-gray-500 text-xs">DEC 25, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">Premium Deal Closed</h3>
+            <p class="text-gray-400 text-sm">Verified account with original email. Secure transfer done.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 5 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof5.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH13 MAX</span>
+              <span class="text-gray-500 text-xs">DEC 20, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">Budget Max Account</h3>
+            <p class="text-gray-400 text-sm">Perfect starter max account. Great value for beginners.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 6 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof1.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-red-400 text-xs font-bold tracking-wider">TH16</span>
+              <span class="text-gray-500 text-xs">DEC 18, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH16 MAX</h3>
+            <p class="text-gray-400 text-sm">High level account with rare legendaries.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 7 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof7.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH16 SEMI</span>
+              <span class="text-gray-500 text-xs">DEC 15, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH16 Semi Max Deal</h3>
+            <p class="text-gray-400 text-sm">Near max TH16 with strong heroes. Instant payment received.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 8 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof8.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-blue-400 text-xs font-bold tracking-wider">TH 15</span>
+              <span class="text-gray-500 text-xs">DEC 10, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH 15 SEMI</h3>
+            <p class="text-gray-400 text-sm">Safe transfer.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 9 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof9.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH13 MAX</span>
+              <span class="text-gray-500 text-xs">DEC 05, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH13 Maxed Account</h3>
+            <p class="text-gray-400 text-sm">Fully maxed TH13 with all skins. Customer very happy.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 10 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof10.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-red-400 text-xs font-bold tracking-wider">TH 17</span>
+              <span class="text-gray-500 text-xs">NOV 28, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH 17 FULL MAX</h3>
+            <p class="text-gray-400 text-sm">Great collection. Delivered same day.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 11 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof11.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH15 VERIFIED</span>
+              <span class="text-gray-500 text-xs">NOV 22, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH15 Safe Transfer</h3>
+            <p class="text-gray-400 text-sm">Email changed successfully. Full after-sale support provided.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 12 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof12.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH14 MAX</span>
+              <span class="text-gray-500 text-xs">NOV 15, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH14 Full Max Deal</h3>
+            <p class="text-gray-400 text-sm">Affordable max account. Great for players upgrading.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 13 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof13.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-blue-400 text-xs font-bold tracking-wider">CLASH OF CLANS</span>
+              <span class="text-gray-500 text-xs">NOV 08, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH 16 SEMI MAX</h3>
+            <p class="text-gray-400 text-sm">Top ladder account.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 14 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof14.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-yellow-500 text-xs font-bold tracking-wider">TH14 SEMI</span>
+              <span class="text-gray-500 text-xs">OCT 30, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH14 Semi Max</h3>
+            <p class="text-gray-400 text-sm">Great value TH14 with strong war base. Happy customer.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proof Card 15 -->
+        <div class="proof-card-pro min-w-[300px] md:min-w-[380px] flex-shrink-0 snap-center">
+          <div class="image-wrapper">
+            <img src="proof15.jpg" class="w-full h-56 md:h-72 object-cover">
+            <div class="absolute top-4 left-4">
+              <span class="status-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full text-white">Verified</span>
+            </div>
+          </div>
+          <div class="p-5 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-red-400 text-xs font-bold tracking-wider">CLASH OF CLANS</span>
+              <span class="text-gray-500 text-xs">OCT 22, 2025</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-white mb-2">TH17 MAX</h3>
+            <p class="text-gray-400 text-sm">Premium delivery service.</p>
+            <div class="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-green-400 text-sm font-medium">Transaction Completed</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal">
+        <div class="bg-white/5 rounded-2xl p-5 text-center border border-white/5">
+          <p class="text-3xl md:text-4xl font-bold text-white mb-1">500+</p>
+          <p class="text-gray-400 text-sm">Deals Completed</p>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-5 text-center border border-white/5">
+          <p class="text-3xl md:text-4xl font-bold text-white mb-1">100%</p>
+          <p class="text-gray-400 text-sm">Safe Delivery</p>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-5 text-center border border-white/5">
+          <p class="text-3xl md:text-4xl font-bold text-white mb-1">4+</p>
+          <p class="text-gray-400 text-sm">Years Active</p>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-5 text-center border border-white/5">
+          <p class="text-3xl md:text-4xl font-bold text-white mb-1">24/7</p>
+          <p class="text-gray-400 text-sm">Support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section - 28 REVIEWS -->
+  <section id="reviews" class="py-20 md:py-32 bg-[#0a0a0b] relative">
+    <div class="section-line w-full absolute top-0"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6 reveal">
+        <div>
+          <p class="text-yellow-500 text-sm font-bold tracking-[0.3em] mb-3">CUSTOMER FEEDBACK</p>
+          <h2 class="text-4xl md:text-7xl font-bold">TRUSTED <span class="text-gray-500">REVIEWS</span></h2>
+          <p class="text-gray-400 mt-3 text-lg">What our 500+ customers say about us.</p>
+        </div>
+        <!-- Navigation Arrows -->
+        <div class="flex gap-3">
+          <button @click="scrollSliderPrev('reviewSlider')" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition group">
+            <i class="fas fa-arrow-left text-gray-400 group-hover:text-black"></i>
+          </button>
+          <button @click="scrollSlider('reviewSlider')" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition group">
+            <i class="fas fa-arrow-right text-gray-400 group-hover:text-black"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reviews Slider -->
+      <div x-ref="reviewSlider" class="flex gap-5 md:gap-6 overflow-x-auto hide-scrollbar pb-8 snap-x snap-mandatory reveal">
+        
+        <!-- Review 1 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl">R</div>
+              <div>
+                <p class="font-bold text-white text-lg">Rohan M.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Oldest and most trusted dealer in the market! Instant payment received within 5 minutes. The conversation was very smooth and professional. Highly recommend!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH16</span>
+            <span class="text-gray-600 text-xs ml-auto">JAN 05, 2025</span>
+          </div>
+        </div>
+
+        <!-- Review 2 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl">A</div>
+              <div>
+                <p class="font-bold text-white text-lg">Arjun S.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"You can trust this guy 100%! Full support after sale was amazing. He helped me change email and secure the account. Best dealer I've ever dealt with."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full">POKEMON GO</span>
+            <span class="text-gray-600 text-xs ml-auto">JAN 03, 2025</span>
+          </div>
+        </div>
+
+        <!-- Review 3 - 4 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white font-bold text-xl">P</div>
+              <div>
+                <p class="font-bold text-white text-lg">Priya K.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Good experience overall. Payment was instant and the account was exactly as described. Took a bit longer to respond but worth the wait. Trusted dealer."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH15</span>
+            <span class="text-gray-600 text-xs ml-auto">JAN 01, 2025</span>
+          </div>
+        </div>
+
+        <!-- Review 4 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-xl">S</div>
+              <div>
+                <p class="font-bold text-white text-lg">Sameer J.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"100% Legit dealer! This is my 3rd purchase from Family Clan. Instant payment every time, nice conversation, and full after-sale support. The oldest dealer in market you can trust!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH14</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 28, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 5 - 3 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl">V</div>
+              <div>
+                <p class="font-bold text-white text-lg">Vikram T.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Account was good but response time was slow due to time zone difference. Eventually got everything sorted. Would recommend being patient."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full">CLASH ROYALE</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 25, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 6 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">K</div>
+              <div>
+                <p class="font-bold text-white text-lg">Karan D.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Trusted dealer since 2021! The instant payment system is amazing. Got my money within minutes. Full support even after the sale. Can't ask for more!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH16</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 22, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 7 - 4 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white font-bold text-xl">N</div>
+              <div>
+                <p class="font-bold text-white text-lg">Neha R.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Nice conversation throughout the deal. Very patient and helpful. The account transfer was smooth. Would have given 5 stars but took 2 days to complete."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full">POKEMON GO</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 20, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 8 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center text-white font-bold text-xl">M</div>
+              <div>
+                <p class="font-bold text-white text-lg">Mohit G.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"This is the oldest dealer in the market and you can trust him completely! Instant payment, smooth process, and amazing after-sale support. 10/10!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH13</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 18, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 9 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center text-white font-bold text-xl">D</div>
+              <div>
+                <p class="font-bold text-white text-lg">Deepak V.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Bought TH15 max account. Instant payment received! Very nice conversation and professional approach. Full support even weeks after purchase. Highly trusted!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH15</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 15, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 10 - 4 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl">H</div>
+              <div>
+                <p class="font-bold text-white text-lg">Harsh P.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Good dealer, you can trust him. Payment was quick and account was as described. Only issue was slightly higher price but worth it for security."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full">CLASH ROYALE</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 12, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 11 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">T</div>
+              <div>
+                <p class="font-bold text-white text-lg">Tanmay S.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Best dealer in the market! Trusted since day one. Instant payment and the nicest conversation. He even helped me understand how to secure my account. Full support!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH16</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 10, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 12 - 3 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-slate-500 to-gray-500 flex items-center justify-center text-white font-bold text-xl">J</div>
+              <div>
+                <p class="font-bold text-white text-lg">Jayesh M.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Decent experience. Account was fine but there were some minor issues with the process. Support helped resolve it eventually. Okay overall."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH11</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 08, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 13 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-rose-500 to-red-500 flex items-center justify-center text-white font-bold text-xl">L</div>
+              <div>
+                <p class="font-bold text-white text-lg">Lakshay B.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"You can trust this dealer 100%! Oldest in the market and still the best. Instant payment, great conversation, and amazing after-sale support. Will buy again!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full">POKEMON GO</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 05, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 14 - 4 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center text-white font-bold text-xl">Y</div>
+              <div>
+                <p class="font-bold text-white text-lg">Yash K.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Trusted dealer with instant payment. Nice to talk to and very professional. Small delay in delivery but overall great experience. Recommended!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH14</span>
+            <span class="text-gray-600 text-xs ml-auto">DEC 02, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 15 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center text-white font-bold text-xl">O</div>
+              <div>
+                <p class="font-bold text-white text-lg">Om P.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Family Clan is the most trusted name in account dealing! Instant payment, smooth conversation, and they provide full support even after sale. Highly recommend!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full">CLASH ROYALE</span>
+            <span class="text-gray-600 text-xs ml-auto">NOV 28, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 16 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-fuchsia-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl">I</div>
+              <div>
+                <p class="font-bold text-white text-lg">Ishaan L.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Was worried about scams but this dealer proved me wrong. Instant payment, nice conversation, and the best after-sale support. Oldest trusted dealer!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH15</span>
+            <span class="text-gray-600 text-xs ml-auto">NOV 25, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 17 - 4 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-lime-500 to-green-500 flex items-center justify-center text-white font-bold text-xl">G</div>
+              <div>
+                <p class="font-bold text-white text-lg">Gaurav N.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Good dealer, trustworthy. Payment was instant and support after sale was helpful. Would have been 5 stars if the account had more gems."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH12</span>
+            <span class="text-gray-600 text-xs ml-auto">NOV 22, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 18 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-sky-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl">B</div>
+              <div>
+                <p class="font-bold text-white text-lg">Bharat R.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Absolutely the best! Instant payment received. Nice and friendly conversation. Full support after sale - helped me with email change and security. Highly trusted!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full">POKEMON GO</span>
+            <span class="text-gray-600 text-xs ml-auto">NOV 18, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 19 - 3 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-gray-500 to-zinc-500 flex items-center justify-center text-white font-bold text-xl">E</div>
+              <div>
+                <p class="font-bold text-white text-lg">Eklavya S.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Average experience. The deal went through but took longer than expected. Account was okay. Would still recommend for the trust factor."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH10</span>
+            <span class="text-gray-600 text-xs ml-auto">NOV 15, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 20 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-rose-500 flex items-center justify-center text-white font-bold text-xl">F</div>
+              <div>
+                <p class="font-bold text-white text-lg">Farhan A.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"This is my go-to dealer for all games! Trusted, instant payment, and the best conversation. Old dealer in market who knows what he's doing. Full after-sale support!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full">CLASH ROYALE</span>
+            <span class="text-gray-600 text-xs ml-auto">NOV 10, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 21 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl">C</div>
+              <div>
+                <p class="font-bold text-white text-lg">Chirag M.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"You can trust this guy blindly! Instant payment within minutes. Very nice conversation and full support after sale. Best dealer I've ever met!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH16</span>
+            <span class="text-gray-600 text-xs ml-auto">NOV 05, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 22 - 4 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xl">W</div>
+              <div>
+                <p class="font-bold text-white text-lg">Wahid K.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Trusted and reliable. Payment was quick. Nice conversation throughout. Would give 5 stars but the price was slightly high. Still recommended!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full">POKEMON GO</span>
+            <span class="text-gray-600 text-xs ml-auto">OCT 30, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 23 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-xl">Z</div>
+              <div>
+                <p class="font-bold text-white text-lg">Zayan R.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Family Clan is the OG! Oldest dealer in the market. Instant payment, best conversation, and they provide full support after sale. You can trust 100%!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH15</span>
+            <span class="text-gray-600 text-xs ml-auto">OCT 25, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 24 - 4 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-fuchsia-500 flex items-center justify-center text-white font-bold text-xl">U</div>
+              <div>
+                <p class="font-bold text-white text-lg">Uday T.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Good experience with Family Clan. Trusted dealer with instant payment. Conversation was nice. Support after sale was helpful. Minus one star for slow reply."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH13</span>
+            <span class="text-gray-600 text-xs ml-auto">OCT 20, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 25 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-sky-500 flex items-center justify-center text-white font-bold text-xl">Q</div>
+              <div>
+                <p class="font-bold text-white text-lg">Qasim J.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"The most trusted dealer you can find! Instant payment, amazing conversation, and full support even months after purchase. This is the oldest reliable dealer in market!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full">CLASH ROYALE</span>
+            <span class="text-gray-600 text-xs ml-auto">OCT 15, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 26 - 3 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-stone-500 to-neutral-500 flex items-center justify-center text-white font-bold text-xl">X</div>
+              <div>
+                <p class="font-bold text-white text-lg">Xerxes P.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-empty"></i>
+              <i class="fas fa-star star-empty"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Took a while to finalize the deal but it worked out. Account was as described. Support was there when needed. Average but trustworthy."</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH11</span>
+            <span class="text-gray-600 text-xs ml-auto">OCT 10, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 27 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl">J</div>
+              <div>
+                <p class="font-bold text-white text-lg">Jai D.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Bought from many dealers but Family Clan is the best! Instant payment, friendly conversation, and they genuinely care about after-sale support. You can fully trust them!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">COC TH14</span>
+            <span class="text-gray-600 text-xs ml-auto">OCT 05, 2024</span>
+          </div>
+        </div>
+
+        <!-- Review 28 - 5 Stars -->
+        <div class="review-card-pro min-w-[320px] md:min-w-[420px] flex-shrink-0 snap-center p-6 md:p-8">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl">W</div>
+              <div>
+                <p class="font-bold text-white text-lg">Waqar H.</p>
+                <p class="text-gray-500 text-sm">Verified Buyer</p>
+              </div>
+            </div>
+            <div class="flex text-sm gap-0.5">
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+              <i class="fas fa-star star-filled"></i>
+            </div>
+          </div>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">"Legend! This is the oldest and most trusted dealer in the market. Instant payment always. Nice person to talk to. Full support after every sale. 100% trustworthy!"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-500 font-medium">PURCHASED:</span>
+            <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full">POKEMON GO</span>
+            <span class="text-gray-600 text-xs ml-auto">SEP 28, 2024</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center gap-6 md:gap-10 mt-12 reveal">
+        <div class="flex items-center gap-3 text-gray-400">
+          <i class="fas fa-shield-alt text-2xl text-green-500"></i>
+          <span class="font-medium">Secure Payments</span>
+        </div>
+        <div class="flex items-center gap-3 text-gray-400">
+          <i class="fas fa-bolt text-2xl text-yellow-500"></i>
+          <span class="font-medium">Instant Payment</span>
+        </div>
+        <div class="flex items-center gap-3 text-gray-400">
+          <i class="fas fa-headset text-2xl text-blue-500"></i>
+          <span class="font-medium">24/7 Support</span>
+        </div>
+        <div class="flex items-center gap-3 text-gray-400">
+          <i class="fas fa-handshake text-2xl text-purple-500"></i>
+          <span class="font-medium">After-Sale Support</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-16 md:py-24 bg-white text-black relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-yellow-500 blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-60 h-60 rounded-full bg-blue-500 blur-3xl"></div>
+    </div>
+    
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <img src="logo.png" alt="Logo" class="h-12 md:h-16 mx-auto mb-8">
+      <h2 class="text-4xl md:text-6xl font-bold mb-4">Join the Family.</h2>
+      <p class="text-xl text-gray-600 mb-10 max-w-xl mx-auto">Follow us for live updates, new stock announcements, and exclusive deals.</p>
+      
+      <a href="https://wa.me/message/JCDRR54IN7HJA1?src=qr" target="_blank" class="inline-flex items-center gap-4 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white px-10 py-5 rounded-full font-bold text-xl hover:scale-105 transition transform shadow-lg">
+        <i class="fab fa-instagram text-2xl"></i>
+        @FAMILY_CLLAN
+      </a>
+      
+      <div class="mt-16 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-400 font-medium">© 2021-2025 FAMILY CLAN • TRUSTED MULTI-GAME DEALER</p>
+        <div class="flex gap-6">
+          <a href="https://wa.me/message/JCDRR54IN7HJA1?src=qr" class="text-gray-400 hover:text-black transition"><i class="fab fa-instagram text-xl"></i></a>
+          <a href="#" class="text-gray-400 hover:text-black transition"><i class="fab fa-telegram text-xl"></i></a>
+          <a href="#" class="text-gray-400 hover:text-black transition"><i class="fab fa-discord text-xl"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero floating animations
+    gsap.to(".hero-float-1", { y: 20, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to(".hero-float-2", { y: -15, x: 5, duration: 2.5, delay: 0.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to(".hero-float-3", { y: 15, x: -5, duration: 3.5, delay: 1, repeat: -1, yoyo: true, ease: "sine.inOut" });
+
+    // Initial Fade In for hero
+    gsap.from(".hero-float-1, .hero-float-2, .hero-float-3", { opacity: 0, y: 50, duration: 1.5, stagger: 0.2, ease: "power4.out" });
+
+    // Scroll reveal animations
+    gsap.utils.toArray('.reveal').forEach(elem => {
+      gsap.fromTo(elem, 
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+    });
+
+    // Townhall cards stagger animation
+    gsap.utils.toArray('.th-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 30, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          delay: i * 0.1,
+          ease: "back.out(1.2)",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+    });
+  </script>
+</body>
+</html>
